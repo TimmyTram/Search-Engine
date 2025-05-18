@@ -233,13 +233,13 @@ class ResumableCrawler:
             # Close the session
             self.session.close()
 
-def run_crawler():
+def run_crawler(host, user, password, database):
     print("Starting Crawler...")
     db = DatabaseController(
-        host="localhost",
-        user="root",
-        password="1234",
-        database="crawler_db"
+        host=host,
+        user=user,
+        password=password,
+        database=database
     )
 
     # Create table for crawler queue with status tracking
@@ -271,41 +271,3 @@ def run_crawler():
 
     crawler.crawl()
     db.close()
-
-# if __name__ == "__main__":
-#     db = DatabaseController(
-#         host="localhost",
-#         user="root",
-#         password="1234",
-#         database="crawler_db"
-#     )
-
-#     # Create table for crawler queue with status tracking
-#     db.create_table("crawler_queue", {
-#         "id": "INT AUTO_INCREMENT PRIMARY KEY",
-#         "url": "VARCHAR(255) NOT NULL UNIQUE",
-#         "status": "ENUM('pending', 'processed') DEFAULT 'pending'",
-#         "timestamp": "DATETIME DEFAULT CURRENT_TIMESTAMP"
-#     })
-
-#     seed_urls = [
-#         "https://en.wikipedia.org/wiki/Hololive_Production", 
-#         "https://en.wikipedia.org/wiki/Super_(gamer)"
-#     ]
-    
-#     blacklist = [
-#         "web.archive.org",
-#         "archive.org",
-#         "example.com"
-#     ] 
-
-#     crawler = ResumableCrawler(
-#         seed_urls=seed_urls,
-#         max_workers=20,  
-#         timeout=5,
-#         blacklist=blacklist,
-#         db=db
-#     )
-
-#     crawler.crawl()
-#     db.close()

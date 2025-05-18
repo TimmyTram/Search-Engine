@@ -256,13 +256,13 @@ class ResumableIndexer:
                 print("[INFO] Indexing completed successfully.")
 
 
-def run_indexer():
+def run_indexer(host, user, password, database):
     print("[INFO] Starting indexer...")
     db = DatabaseController(
-        host="localhost",
-        user="root",
-        password="1234",
-        database="crawler_db"
+        host=host,
+        user=user,
+        password=password,
+        database=database
     )
 
     # Create index status tracking table
@@ -292,39 +292,3 @@ def run_indexer():
     indexer.index_urls(reindex=False)
     
     db.close()
-
-# if __name__ == "__main__":
-#     db = DatabaseController(
-#         host="localhost",
-#         user="root",
-#         password="1234",
-#         database="crawler_db"
-#     )
-
-#     # Create index status tracking table
-#     db.create_table("indexing_status", {
-#         "id": "INT AUTO_INCREMENT PRIMARY KEY",
-#         "page_id": "INT NOT NULL UNIQUE",
-#         "status": "ENUM('pending', 'indexing', 'indexed', 'failed') DEFAULT 'pending'",
-#         "last_indexed": "DATETIME DEFAULT CURRENT_TIMESTAMP",
-#         "error": "VARCHAR(255) DEFAULT NULL",
-#         "FOREIGN KEY (page_id) REFERENCES crawler_queue(id) ON DELETE CASCADE": ""
-#     })
-
-#     # Create inverted index table if not exists
-#     db.create_table("inverted_index", {
-#         "id": "INT AUTO_INCREMENT PRIMARY KEY",
-#         "keyword": "VARCHAR(255) NOT NULL",
-#         "page_id": "INT NOT NULL",
-#         "frequency": "INT NOT NULL DEFAULT 1",
-#         "FOREIGN KEY (page_id) REFERENCES crawler_queue(id) ON DELETE CASCADE": "",
-#         "INDEX (keyword)": ""
-#     })
-
-#     # Create the indexer
-#     indexer = ResumableIndexer(db, "crawler_queue")
-    
-#     # Start indexing (set reindex=True to force reindex already indexed pages)
-#     indexer.index_urls(reindex=False)
-    
-#     db.close()
