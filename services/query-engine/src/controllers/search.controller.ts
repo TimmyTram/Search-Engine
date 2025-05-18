@@ -14,7 +14,11 @@ export const search = async (req: Request, res: Response): Promise<void> => {
             return;
         }
 
-        const keywordList = rawKeywords.split(',').map(k => k.trim()).filter(Boolean);
+        const keywordList = rawKeywords
+            .split(/[\s,]+/)
+            .map(k => k.trim())
+            .filter(Boolean);
+
         const { results, total } = await queryService.searchByKeywords(keywordList, page, limit);
 
         res.status(200).json({

@@ -17,6 +17,9 @@ This search engine consists of three main components:
 3. **Query Engine**  
    Exposes a search API endpoint that handles user keyword queries and returns the most relevant web pages based on relevance scoring.
 
+4. **Client**
+   A React + Vite Frontend that simply displays a searchbar and the search results from the Search Engine
+
 ---
 
 ## 🚀 Getting Started
@@ -60,6 +63,12 @@ cd ./services/query-engine/
 npm run dev
 ```
 
+#### 🖥️ Search Engine Client
+
+The search engine client:
+
+- Provides a simple frontend display for searching and linking search results
+
 ---
 
 ## ⚙️ Environment Variables
@@ -71,6 +80,11 @@ DB_PASSWORD=
 DB_NAME=
 
 QUERY_ENGINE_PORT=
+```
+
+You will also need an additional ```.env``` file in the /services/client/ folder:
+```env
+VITE_API_URL="api url"
 ```
 
 ## 📁 Config Directory
