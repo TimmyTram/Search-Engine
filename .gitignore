@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environments
+env/
+venv/
+ENV/
+.venv/
+.env/
+
+# Node.js
+node_modules/
+package-lock.json
+
+# Misc
+*.log
+.DS_Store
+*.egg-info/
+.idea/
+.vscode/
+*.swp
