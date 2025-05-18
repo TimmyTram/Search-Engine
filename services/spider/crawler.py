@@ -233,6 +233,19 @@ class ResumableCrawler:
             # Close the session
             self.session.close()
 
+def load_list_from_file(path):
+    """Load a list of URLs from a file"""
+    try:
+        with open(path, 'r') as file:
+            urls = [line.strip() for line in file if line.strip()]
+        return urls
+    except FileNotFoundError:
+        print(f"[ERROR]: File {path} not found.")
+        return []
+    except Exception as e:
+        print(f"[ERROR]: An error occurred while loading the file: {e}")
+        return []
+
 def run_crawler(host, user, password, database):
     print("Starting Crawler...")
     db = DatabaseController(
@@ -250,16 +263,8 @@ def run_crawler(host, user, password, database):
         "timestamp": "DATETIME DEFAULT CURRENT_TIMESTAMP"
     })
 
-    seed_urls = [
-        "https://en.wikipedia.org/wiki/Hololive_Production", 
-        "https://en.wikipedia.org/wiki/Super_(gamer)"
-    ]
-    
-    blacklist = [
-        "web.archive.org",
-        "archive.org",
-        "example.com"
-    ] 
+    seed_urls = load_list_from_file("../../../config/seed_urls.txt")
+    blacklist = load_list_from_file("../../../config/blacklist.txt")
 
     crawler = ResumableCrawler(
         seed_urls=seed_urls,

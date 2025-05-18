@@ -24,3 +24,6 @@ package-lock.json
 .idea/
 .vscode/
 *.swp
+
+# Ignore config text files
+config/*.txt
